@@ -8,9 +8,7 @@ using namespace std;
 
 #define MAX 10000
 
-//#define VTN_NUM 1
 
-//#define TERMINAL_NUM 1
 
 // 产生式
 Production productions[100];  // 产生式集合
@@ -252,7 +250,7 @@ int getVtnId(string target){
         }
     }
 
-    //printf("get vtn id error!!!!!!!!!\n");
+    printf("get vtn id error!!!!!!!!!\n");
     return -1;
 }
 
@@ -534,15 +532,17 @@ void developAnalysisTable(){
 
 // 打印栈内外字符串
 void printSymbolString(WORD *symbolStack, int stackTop, WORD *symbolNotInStack, int waitIn, int notInTop){
-    string in;
+    string in="{";
     for(int i = 0; i < stackTop; i++){
-        in = in + "{" + symbolStack[i].key + "}";
+        in = in + " " + symbolStack[i].key + " ";
     }
-    string out;
+    in+="}";
+    string out="{";
     for(int i = waitIn; i < notInTop; i++){
-        out = out + "{" + symbolNotInStack[i].key + "}";
+        out = out + " " + symbolNotInStack[i].key + " ";
     }
-    cout << "symbol stack: " << endl;
+    out+="}";
+    cout << "符号栈: " << endl;
     cout << std::left << std::setw(50) << in;
     cout << std::setw(50) << out;
     cout << endl;
@@ -554,7 +554,7 @@ void printStateString(int *stateStack, int stackTop){
     for(int i = 0; i < stackTop; i++){
         states = states + "{" + to_string(stateStack[i]) + "}";
     }
-    cout << "state stack: " << endl;
+    cout << "状态栈: " << endl;
     cout << std::left << std::setw(50) << states;
     cout << endl;
 }
@@ -587,8 +587,8 @@ void analysis(WORD target[], int wordNum){
     int wait = 0;
 
     cout << "------------------状态分析-------------------" << endl;
-//    printStateString(stateStack, stateStackTop);
-//    printSymbolString(symbolStack, symbolStackTop, target, wait, wordNum);
+    printStateString(stateStack, stateStackTop);
+    printSymbolString(symbolStack, symbolStackTop, target, wait, wordNum);
     cout << "---------------------------------------------" << endl;
 
     while(true){
@@ -666,177 +666,36 @@ void analysis(WORD target[], int wordNum){
     }
 }
 
-//    // 测试
-//    int main(){
-//        // 产生式
-//        productions[productionTop].leftPart = "S'";
-//        productions[productionTop].rightPart[0] = {"S"};
-//        productions[productionTop].rightPartLength = 0;
-//        productionTop++;
-//        productions[productionTop].leftPart = "S";
-//        productions[productionTop].rightPart[0] = {"B"};
-//        productions[productionTop].rightPart[1] = {"B"};
-//        productions[productionTop].rightPartLength = 1;
-//        productionTop++;
-//        productions[productionTop].leftPart = "B";
-//        productions[productionTop].rightPart[0] = "a";
-//        productions[productionTop].rightPart[1] = "B";
-//        productions[productionTop].rightPartLength = 1;
-//        productionTop++;
-//        productions[productionTop].leftPart = "B";
-//        productions[productionTop].rightPart[0] = "b";
-//        productions[productionTop].rightPartLength = 0;
-//        productionTop++;
-//        for(int i = 0; i < productionTop; i++){
-//            cout << productions[i].leftPart << " -> ";
-//            for(int j = 0; j <= productions[i].rightPartLength; j++){
-//                cout << productions[i].rightPart[j];
-//            }
-//            cout << endl;
-//        }
-//
-//        // 非终结符
-//        vtn[vtnTop++] = "S";
-//        //vtn[vtnTop++] = "S'";
-//        vtn[vtnTop++] = "B";
-//
-//        // 终结符
-//        terminal[terminalTop++] = "a";
-//        terminal[terminalTop++] = "b";
-//        terminal[terminalTop++] = "#";
-//
-//        // 函数测试
-//
-//        // 判断终结符
-//        //cout << "non-terminal: " << isNonTerminal("S") << endl;
-//
-//        // state 中 item 是否重复
-//        State stateTest;
-//        stateTest.items[0].pId = 2;
-//        stateTest.items[0].idx = -1;
-//        stateTest.items[1].pId = 0;
-//        stateTest.items[1].idx = -1;
-//        stateTest.top = 2;
-//        //Item itemTest;
-//        //itemTest.pId = 0;
-//        //itemTest.idx = -1;
-//        //cout << "item repeat: " << itemRepeat(stateTest, 0, -1) << endl;
-//
-//        // 是否存在左部是某一元素的产生式
-//        //cout << "production: " << existLeftPro("S'") << endl;
-//
-//        // 获取闭包
-//        //int b[2];
-//
-//        State stateTest2;
-//        stateTest2.items[0].pId = 0;
-//        stateTest2.items[0].idx = -1;
-//        stateTest2.top = 1;
-//        State tempState = CLOSURE(stateTest2);
-//        //cout << "tempState.top:" << tempState.top << endl;
-//        //printState(tempState);
-//        //for(int j = 0; j < tempState.top; j++){
-//        //    Item tempItem = tempState.items[j];
-//        //    Production tempPro = productions[tempItem.pId];
-//        //    cout << tempPro.leftPart << "-->";
-//        //    for(int k = 0; k <= tempPro.rightPartLength + 1; k++){
-//        //        if(tempItem.idx == k - 1){
-//        //            cout << ".";
-//        //        }
-//        //        if(k != tempPro.rightPartLength + 1){
-//        //            cout << tempPro.rightPart[k];
-//        //        }
-//        //    }
-//        //    cout << endl;
-//        //}
-//
-//        //cout << "--------------------" << endl;
-//        tempState = GOTO(tempState, "B");
-//        //printState(tempState);
-//        for(int j = 0; j < tempState.top; j++){
-//            Item tempItem = tempState.items[j];
-//            Production tempPro = productions[tempItem.pId];
-//            //cout << tempPro.leftPart << "-->";
-//            for(int k = 0; k <= tempPro.rightPartLength + 1; k++){
-//                if(tempItem.idx == k - 1){
-//                   // cout << ".";
-//                }
-//                if(k != tempPro.rightPartLength + 1){
-//                   // cout << tempPro.rightPart[k];
-//                }
-//            }
-//            //cout << endl;
-//        }
-//
-//        //cout << "--------------------" << endl;
-//
-//
-//        // 获取规范族
-//        getCanonicalCollection();
-//
-//        //cout << CCTop << endl;
-//
-//        //cout << "--------------------" << endl;
-//        //cout << "--------------------" << endl;
-//        //cout << "--------------------" << endl;
-//        //cout << "--------------------" << endl;
-//        //cout << "--------------------" << endl;
-//
-//        // 打印规范组
-//        //for(int v = 0; v < CCTop; v++){
-//            //printState(CC[v]);
-//        //}
-//        //printState(CC[0]);
-//        //printState(CC[1]);
-//        //printState(CC[2]);
-//        //printState(CC[3]);
-//        //printState(CC[4]);
-//        //printState(CC[5]);
-//        //printState(CC[6]);
-//
-//        cout << "---------分析表-----------" << endl;
-//
-//        // 初始化分析表
-//        initAnalysisTable();
-//
-//        // 构造分析表
-//        developAnalysisTable();
-//        printAnalysisTable();
-//
-//        // 分析
-//        WORD target[100];
-//        target[0].key = "b";
-//        target[1].key = "a";
-//        target[2].key = "b";
-//
-//        analysis(target, 3);
-//
-//        return 0;
-//}
+
 
 // 打印first集
 void printFIRST(){
-    cout << "----------------------- FIRST --------------------------" << endl;
+    cout << "----------------------- 以下是FIRST集 --------------------------" << endl;
     for(int i = 0; i < vtnTop; i++){
-        cout << std::left << std::setw(7) << "{" + vtn[i] + "}" + "'s fisrt collection is : ";
+        cout << std::left << std::setw(7) << "{" + vtn[i] + "}" + "的FIRST集是 : ";
         for(int j = 0; j < FIRST[i].top; j++){
-            cout << "{" + terminal[FIRST[i].vts[j]] + "}";
+            if(j==0) cout<<"{ ";
+            cout <<   terminal[FIRST[i].vts[j]] + " ";
         }
+        cout<<"}";
         cout << endl;
     }
 }
 
 // 打印follow集
 void printFOLLOW(){
-    cout << "----------------------- FOLLOW --------------------------" << endl;
+    cout << "----------------------- 以下是FOLLOW集 --------------------------" << endl;
     for(int i = 0; i < vtnTop; i++){
-        cout << std::left << std::setw(7) << "{" + vtn[i] + "}" + "'s follow collection is : ";
+        cout << std::left << std::setw(7) << "{" + vtn[i] + "}" + "的FOLLOW集是 : ";
         for(int j = 0; j < FOLLOW[i].top; j++){
-            cout << "{" + terminal[FOLLOW[i].vts[j]] + "}";
+            if(j==0) cout<<"{ ";
+            cout <<  terminal[FOLLOW[i].vts[j]] + " ";
         }
+        cout<<"}";
         cout << endl;
     }
 }
+
 
 // 语法分析，target是待处理符号串，wordNum是target的符号个数
 void grammaticalAnalysis(WORD* target, int wordNum){
@@ -846,6 +705,7 @@ void grammaticalAnalysis(WORD* target, int wordNum){
         productions[productionTop].rightPartLength = 0;
         productionTop++;
 
+//    S -> W(C){S}
         productions[productionTop].leftPart = "S";
         productions[productionTop].rightPartLength = -1;
         productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"W"};
@@ -855,6 +715,62 @@ void grammaticalAnalysis(WORD* target, int wordNum){
         productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"{"};
         productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"S"};
         productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"}"};
+        productionTop++;
+
+    //S -> WS
+        productions[productionTop].leftPart = "S";
+        productions[productionTop].rightPartLength = -1;
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"W"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"S"};
+
+        productionTop++;
+
+
+        // S -> TE(A){S}
+        productions[productionTop].leftPart="S";
+        productions[productionTop].rightPartLength = -1;
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"T"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"E"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"("};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"A"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {")"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"{"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"S"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"}"};
+        productionTop++;
+
+
+        // S ->
+//        productions[productionTop].leftPart="S";
+//        productions[productionTop].rightPartLength = -1;
+//        productionTop++;
+
+        //S -> W(C){S}W'{S}
+        productions[productionTop].leftPart="S";
+        productions[productionTop].rightPartLength = -1;
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"W"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"("};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"C"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {")"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"{"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"S"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"}"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"K"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"{"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"S"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"}"};
+        productionTop++;
+//        //W -> else
+        productions[productionTop].leftPart="K";
+        productions[productionTop].rightPartLength = -1;
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"else"};
+        productionTop++;
+
+        //A -> TE
+        productions[productionTop].leftPart="A";
+        productions[productionTop].rightPartLength = -1;
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"T"};
+        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"E"};
         productionTop++;
 
         productions[productionTop].leftPart = "W";
@@ -895,10 +811,6 @@ void grammaticalAnalysis(WORD* target, int wordNum){
         productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"num"};
         productionTop++;
 
-//        productions[productionTop].leftPart = "S";
-//        productions[productionTop].rightPartLength = -1;
-//        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"E"};
-//        productionTop++;
 
         productions[productionTop].leftPart = "C";
         productions[productionTop].rightPartLength = -1;
@@ -979,7 +891,7 @@ void grammaticalAnalysis(WORD* target, int wordNum){
         productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"boolean"};
         productionTop++;
 
-        cout << "----------------产生式-----------------" << endl;
+        cout << "----------------以下是产生式-----------------" << endl;
         for(int i = 0; i < productionTop; i++){
             cout << i << ". " << productions[i].leftPart << " -> ";
             for(int j = 0; j <= productions[i].rightPartLength; j++){
@@ -1000,6 +912,8 @@ void grammaticalAnalysis(WORD* target, int wordNum){
         vtn[vtnTop++] = "U";
         vtn[vtnTop++] = "E";
         vtn[vtnTop++] = "T";
+        vtn[vtnTop++] = "A";
+        vtn[vtnTop++] = "K";
         //vtn[vtnTop++] = "S'";
 
         // 设定终结符
@@ -1014,6 +928,7 @@ void grammaticalAnalysis(WORD* target, int wordNum){
         terminal[terminalTop++] = "*";
         terminal[terminalTop++] = "/";
         terminal[terminalTop++] = "if";
+        terminal[terminalTop++] = "else";
         terminal[terminalTop++] = "while";
         terminal[terminalTop++] = "int";
         terminal[terminalTop++] = "double";
@@ -1042,7 +957,7 @@ void grammaticalAnalysis(WORD* target, int wordNum){
         // 构造分析表
         developAnalysisTable();
 
-        cout << "---------------分析表------------------" << endl;
+        cout << "---------------以下是分析表------------------" << endl;
         printAnalysisTable();
 
         // 分析
@@ -1051,111 +966,7 @@ void grammaticalAnalysis(WORD* target, int wordNum){
 
 }
 
-// 测试分析
-void grammaticalAnalysis_test(WORD* target, int wordNum){
-        // 产生式
-        productions[productionTop].leftPart = "E'";
-        productions[productionTop].rightPart[0] = {"E"};
-        productions[productionTop].rightPartLength = 0;
-        productionTop++;
 
-        productions[productionTop].leftPart = "E";
-        productions[productionTop].rightPartLength = -1;
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"E"};
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"+"};
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"T"};
-        productionTop++;
-
-        productions[productionTop].leftPart = "E";
-        productions[productionTop].rightPartLength = -1;
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"T"};
-        productionTop++;
-
-        productions[productionTop].leftPart = "T";
-        productions[productionTop].rightPartLength = -1;
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"T"};
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"*"};
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"F"};
-        productionTop++;
-
-        productions[productionTop].leftPart = "T";
-        productions[productionTop].rightPartLength = -1;
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"F"};
-        productionTop++;
-
-        productions[productionTop].leftPart = "F";
-        productions[productionTop].rightPartLength = -1;
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"("};
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"E"};
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {")"};
-        productionTop++;
-
-        productions[productionTop].leftPart = "F";
-        productions[productionTop].rightPartLength = -1;
-        productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"id"};
-        productionTop++;
-
-        cout << "----------------产生式-----------------" << endl;
-        for(int i = 0; i < productionTop; i++){
-            cout << i << ". " << productions[i].leftPart << " -> ";
-            for(int j = 0; j <= productions[i].rightPartLength; j++){
-                cout << productions[i].rightPart[j];
-            }
-            cout << endl;
-        }
-
-        // 非终结符
-        vtn[vtnTop++] = "E";
-        vtn[vtnTop++] = "T";
-        vtn[vtnTop++] = "F";
-        //vtn[vtnTop++] = "S'";
-
-        // 终结符
-        terminal[terminalTop++] = "+";
-        terminal[terminalTop++] = "*";
-        terminal[terminalTop++] = "(";
-        terminal[terminalTop++] = ")";
-        terminal[terminalTop++] = "id";
-        terminal[terminalTop++] = "#";
-
-//        State stateTest2;
-//        stateTest2.items[0].pId = 0;
-//        stateTest2.items[0].idx = -1;
-//        stateTest2.top = 1;
-//        State tempState = CLOSURE(stateTest2);
-//        printState(tempState);
-//        tempState = GOTO(tempState, "W");
-//        printState(tempState);
-
-        //State tempState = GOTO(, "S");
-
-        // 生成first集
-        initFIRST();
-        printFIRST();
-
-        //cout << "sssssssssssssssss      " << vtn[0] << endl;
-
-        // 生成follow集
-        initFOLLOW();
-        printFOLLOW();
-
-        // 获取规范族
-        getCanonicalCollection();
-
-        // 初始化分析表
-        initAnalysisTable();
-
-        // 构造分析表
-        developAnalysisTable();
-
-        cout << "---------------分析表------------------" << endl;
-        printAnalysisTable();
-
-        // 分析
-
-        analysis(target, wordNum);
-
-}
 
 
 

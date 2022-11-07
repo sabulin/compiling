@@ -6,7 +6,7 @@ using namespace std;
 
 #define KEYWORD_NUM 8
 
-WORD token[100];
+WORD token[1000];
 int top = 0;
 int line = 1;
 
@@ -155,6 +155,7 @@ void printToken(){
 void scan(char *words){
     while(1){
         // É¾³ý¿Õ¸ñºÍ»»ÐÐ·û
+//        printf("start scan--------------------");
         deleteBlank(words);
         // # ½ØÖ¹
         if(*words == '#'){
@@ -304,13 +305,6 @@ void scan(char *words){
     }
 }
 
-//int main()
-//{
-//    char test[] = "/* ×¢ÊÍ */ int main() \n // hhh \n { int a = 123.60 + 23; if ( a == 1 ) { return;}#";
-//    scan(test);
-//    printToken();
-//    return 0;
-//}
 
 
 

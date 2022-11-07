@@ -48,7 +48,7 @@ typedef struct Item{
 typedef struct Production{
     //int id;
     string leftPart;
-    string rightPart[10];
+    string rightPart[100];
     int rightPartLength;
 } Production;
 
