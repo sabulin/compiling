@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/GrammaticalAnalysis.cpp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/LexicalAnalysis.cpp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/SemanticAnalysis.cpp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/SemanticAnalysis.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/intermediate_code.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/item.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/main.cpp" charset="GBK" />
+  </component>
+</project>
