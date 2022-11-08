@@ -430,7 +430,7 @@ bool inFOLLOW(string v, int target){
 }
 
 // 打印分析表
-void printAnalysisTable(){
+void PrintAnalysisTable(){
     cout << std::setw(6) << "";
     for(int i = 0; i < terminalTop; i++){
         cout << std::setw(6) << terminal[i];
@@ -449,6 +449,47 @@ void printAnalysisTable(){
                 cout << std::left << std::setw(6) << display;
             }
         }
+        for(int j = 0; j < vtnTop; j++){
+            if(gotoTable[i][j].direct == -1){
+                cout << std::left << std::setw(6) << gotoTable[i][j].op;
+            } else {
+                string display = gotoTable[i][j].op + to_string(gotoTable[i][j].direct);
+                cout << std::left << std::setw(6) << display;
+            }
+        }
+        printf("\n");
+    }
+}
+
+void printAnalysisTable(){
+
+    cout << "-------------------- 以下是ACTION表 ----------------------------" << endl;
+    cout << std::setw(6) << "";
+    for(int i = 0; i < terminalTop; i++){
+        cout << std::setw(6) << terminal[i];
+    }
+    for(int i = 0; i < CCTop; i++){
+        cout << i << "   ";
+        for(int j = 0; j < terminalTop; j++){
+            if(actionTable[i][j].direct == -1){
+                cout << std::left << std::setw(6) << actionTable[i][j].op;
+            } else {
+                string display = actionTable[i][j].op + to_string(actionTable[i][j].direct);
+                cout << std::left << std::setw(6) << display;
+            }
+        }
+
+        printf("\n");
+    }
+    cout<<endl;
+    cout << "-------------------- 以下是GOTO表 ----------------------------" << endl;
+    for(int i = 0; i < vtnTop; i++){
+        cout << std::setw(6) << vtn[i];
+    }
+    cout << endl;
+    for(int i = 0; i < CCTop; i++){
+        cout << i << "   ";
+
         for(int j = 0; j < vtnTop; j++){
             if(gotoTable[i][j].direct == -1){
                 cout << std::left << std::setw(6) << gotoTable[i][j].op;
@@ -550,10 +591,11 @@ void printSymbolString(WORD *symbolStack, int stackTop, WORD *symbolNotInStack, 
 
 // 打印状态栈
 void printStateString(int *stateStack, int stackTop){
-    string states;
+    string states="{";
     for(int i = 0; i < stackTop; i++){
-        states = states + "{" + to_string(stateStack[i]) + "}";
+        states = states + " " + to_string(stateStack[i]) + " ";
     }
+    states+="}";
     cout << "状态栈: " << endl;
     cout << std::left << std::setw(50) << states;
     cout << endl;
@@ -623,13 +665,13 @@ void analysis(WORD target[], int wordNum){
                 printStateString(stateStack, stateStackTop);
                 printSymbolString(symbolStack, symbolStackTop, target, wait, wordNum);
                 cout << "---------------------------------------------" << endl;
-                cout << "analysis finish!" << endl;
+                cout << "分析结束哩" << endl;
                 return;
             }
             if(cell.op.compare("*") == 0){
                 cout << "analysis error in action table (" << currentState << "," << id << ")" << endl;
                 cout << "throw error at line " << tempWord.lineNum << ":" << tempWord.position << endl;
-                exit(0);
+                //exit(0);
             }
             // 继续移进
             if(cell.op.compare("s") == 0){
@@ -901,10 +943,7 @@ void grammaticalAnalysis(WORD* target, int wordNum){
         }
 
         // 设定非终结符
-        //
-        // 第一个非终结符一定要是扩广文法加的那个产生式的右部
-        // 比如 S' -> S 的 S
-        //
+
         vtn[vtnTop++] = "S";
         vtn[vtnTop++] = "C";
         vtn[vtnTop++] = "W";
