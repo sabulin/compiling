@@ -391,7 +391,7 @@ Collection getFOLLOW(int vId){
                         FOLLOW[vId].vts[FOLLOW[vId].top++] = id;
                     }
                 } else if((id = getVtnId(productions[i].rightPart[j + 1])) != -1){
-                    // 如果该非终结符下一个符号是另一个非终结符，就把该非终结符的follow集加入
+                    // 如果该非终结符下一个符号是另一个非终结符，就把该非终结符的first集加入
                     addCollection(vId, getFIRST(id), true);
                 }
             }
@@ -430,37 +430,6 @@ bool inFOLLOW(string v, int target){
 }
 
 // 打印分析表
-void PrintAnalysisTable(){
-    cout << std::setw(6) << "";
-    for(int i = 0; i < terminalTop; i++){
-        cout << std::setw(6) << terminal[i];
-    }
-    for(int i = 0; i < vtnTop; i++){
-        cout << std::setw(6) << vtn[i];
-    }
-    cout << endl;
-    for(int i = 0; i < CCTop; i++){
-        cout << i << "   ";
-        for(int j = 0; j < terminalTop; j++){
-            if(actionTable[i][j].direct == -1){
-                cout << std::left << std::setw(6) << actionTable[i][j].op;
-            } else {
-                string display = actionTable[i][j].op + to_string(actionTable[i][j].direct);
-                cout << std::left << std::setw(6) << display;
-            }
-        }
-        for(int j = 0; j < vtnTop; j++){
-            if(gotoTable[i][j].direct == -1){
-                cout << std::left << std::setw(6) << gotoTable[i][j].op;
-            } else {
-                string display = gotoTable[i][j].op + to_string(gotoTable[i][j].direct);
-                cout << std::left << std::setw(6) << display;
-            }
-        }
-        printf("\n");
-    }
-}
-
 void printAnalysisTable(){
 
     cout << "-------------------- 以下是ACTION表 ----------------------------" << endl;

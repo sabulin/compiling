@@ -11,6 +11,8 @@ bool itemRepeat(State state, int pId, int idx);
 
 int* existLeftPro(string target);
 
+Collection getFIRST(int vId); // 获取并产生某一非终结符的FIRST集
+
 State CLOSURE(State target);
 
 State GOTO(State state, string x);

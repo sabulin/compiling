@@ -31,9 +31,9 @@ typedef struct SymbolLine{
 } SymbolLine;
 
 typedef struct AnalysisCell{
-    string op;
-    int direct;
-} AnalysisCell;
+    string op; //状态
+    int direct;//方向
+} AnalysisCell; // 分析表单元
 
 typedef struct Collection{
     int* vts = (int*)malloc(100 * sizeof(int));

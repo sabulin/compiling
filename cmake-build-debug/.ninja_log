@@ -42,3 +42,14 @@
 270	358	6895762796591142	mylab2.exe	37c68ad7c90fb979
 2	271	6895763427580954	CMakeFiles/mylab2.dir/main.cpp.obj	10f2d0df4d9c2c19
 271	356	6895763428409158	mylab2.exe	37c68ad7c90fb979
+8	298	6895785047073039	CMakeFiles/mylab2.dir/main.cpp.obj	10f2d0df4d9c2c19
+2	499	6895785049078598	CMakeFiles/mylab2.dir/GrammaticalAnalysis.cpp.obj	b2ae298f000f5e28
+499	597	6895785050036677	mylab2.exe	37c68ad7c90fb979
+13	330	6895979119277442	CMakeFiles/mylab2.dir/main.cpp.obj	10f2d0df4d9c2c19
+2	357	6895979119546721	CMakeFiles/mylab2.dir/LexicalAnalysis.cpp.obj	b238480fdbc9f1ab
+8	531	6895979121284474	CMakeFiles/mylab2.dir/GrammaticalAnalysis.cpp.obj	b2ae298f000f5e28
+531	634	6895979122291781	mylab2.exe	37c68ad7c90fb979
+2	272	6895979674697950	CMakeFiles/mylab2.dir/main.cpp.obj	10f2d0df4d9c2c19
+272	359	6895979675545961	mylab2.exe	37c68ad7c90fb979
+1	271	6895980585626067	CMakeFiles/mylab2.dir/main.cpp.obj	10f2d0df4d9c2c19
+271	356	6895980586454780	mylab2.exe	37c68ad7c90fb979
