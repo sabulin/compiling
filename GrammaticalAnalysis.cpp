@@ -750,6 +750,14 @@ void grammaticalAnalysis(WORD* target, int wordNum){
         productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"}"};
         productionTop++;
 
+    // S -> TE;
+    productions[productionTop].leftPart="S";
+    productions[productionTop].rightPartLength = -1;
+    productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"T"};
+    productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {"E"};
+    productions[productionTop].rightPart[++productions[productionTop].rightPartLength] = {";"};
+    productionTop++;
+
 
         // S ->
 //        productions[productionTop].leftPart="S";

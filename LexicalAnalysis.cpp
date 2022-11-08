@@ -29,9 +29,9 @@ int getLSymbolTableSize(){
 
 void printSymbolTableL(){
     cout << "-----------------------·ûºÅ±í--------------------------" << endl;
-    cout << "id    " << "name     " << "addr     " << endl;
+    cout << "id    " << "name     " << "" << endl;
     for(int i = 0; i < tableTopL; i++){
-        cout << i << "     " << symbolTableL[i].value << "        " << symbolTableL[i].addr << endl;
+        cout << i << "     " << symbolTableL[i].value << "        "  << endl;
     }
 }
 

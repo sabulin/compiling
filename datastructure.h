@@ -10,13 +10,13 @@
 using namespace std;
 
 typedef struct WORD{
-    int code;
-    string key;
-    string addr = "#";
-    string position;
-    int lineNum;
-    string extra;
-    bool variable;
+    int code; //种别码
+    string key; // 键
+    string addr = "#"; //符号表地址码
+    string position; //位置
+    int lineNum; // 行号
+    string extra; // 额外信息（没啥用）
+    bool variable; //是否是变量
 } WORD;
 
 enum symbol{
@@ -25,7 +25,7 @@ enum symbol{
 
 typedef struct SymbolLine{
     string addr;
-    string value;
+    string value; // 名字
     string type;
     string vType;
 } SymbolLine;
@@ -38,25 +38,25 @@ typedef struct AnalysisCell{
 typedef struct Collection{
     int* vts = (int*)malloc(100 * sizeof(int));
     int top = 0;
-} Collection;
+} Collection;// FIRST FOLLOW集
 
 typedef struct Item{
-    int pId;
+    int pId;  //产生式id
     int idx;  // 在分析栈中最后一个元素的下标
 } Item;
 
 typedef struct Production{
     //int id;
-    string leftPart;
-    string rightPart[100];
+    string leftPart;//左部
+    string rightPart[100];//右部
     int rightPartLength;
-} Production;
+} Production;//产生式
 
 typedef struct State{
     int id;
-    Item *items = (Item*)malloc(100 * sizeof(Item));
+    Item *items = (Item*)malloc(100 * sizeof(Item)); //项目数组
     int top = 0;
-} State;
+} State; // 状态
 
 
 #endif //MYLAB2_DATASTRUCTURE_H
